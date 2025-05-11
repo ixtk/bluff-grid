@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --border-radius: 5px;
+  --card-spacing: 16px;
+  --col-primary: hsl(271, 81%, 56%);
+  /* --col-secondary: ;
+--col-foreground: ;
+--col-background: ;
+--col-accent: ; */
+  --col-tertiary: hsl(0, 0%, 92%);
+  --col-danger: hsl(0, 84%, 60%);
+  --col-success: hsl(142, 76%, 36%);
+  --col-light: hsl(0, 0%, 100%);
+
+}
+
+.btn {
+  border: none;
+  font: inherit;
+  background-color: transparent;
+  padding: 8px 15px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--col-primary);
+  color: var(--col-light);
+}
+
+.btn-outline {
+  background-color: var(--col-light);
+  border: 1px solid var(--col-tertiary);
+}
+
