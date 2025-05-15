@@ -1,42 +1,96 @@
 * {
   box-sizing: border-box;
-}
-
-:root {
-  --border-radius: 5px;
-  --card-spacing: 16px;
-  --col-primary: hsl(271, 81%, 56%);
-  /* --col-secondary: ;
---col-foreground: ;
---col-background: ;
---col-accent: ; */
-  --col-tertiary: hsl(0, 0%, 92%);
-  --col-danger: hsl(0, 84%, 60%);
-  --col-success: hsl(142, 76%, 36%);
-  --col-light: hsl(0, 0%, 100%);
-
-}
-
-.btn {
-  border: none;
-  font: inherit;
-  background-color: transparent;
-  padding: 8px 15px;
-  border-radius: var(--border-radius);
-  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Geist', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.btn {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bolder;
 }
 
 .btn-primary {
-  background-color: var(--col-primary);
-  color: var(--col-light);
+  background-color: hsl(271, 81%, 56%);
+  color: white;
 }
 
 .btn-outline {
-  background-color: var(--col-light);
-  border: 1px solid var(--col-tertiary);
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
 }
 
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #1f2937;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  display: inline-block;
+}
+
+.badge-danger {
+  background-color: hsl(0, 84%, 60%);
+}
+
+.badge-success {
+  background-color: hsl(142, 76%, 36%);
+}
