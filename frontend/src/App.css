@@ -1,65 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
+:root {
+  --border-radius: 5px;
+  --card-spacing: 16px;
 
+  --purple-900: hsl(271, 81%, 46%);
+  --purple-700: hsl(271, 81%, 56%);
+  --purple-300: hsl(271, 81%, 86%);
+
+  --red-900: hsl(0, 84%, 40%);
+  --red-700: hsl(0, 84%, 60%);
+
+  --green-900: hsl(142, 76%, 26%);
+  --green-700: hsl(142, 76%, 36%);
+
+  --gray-700: hsl(0, 0%, 20%);
+  --gray-500: hsl(0, 0%, 50%);
+  --gray-300: hsl(0, 0%, 85%);
+  --gray-100: hsl(210, 40%, 96%);
+  --gray-50: hsl(0, 0%, 97%);
+
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
+}
+a {
+  display: inline-block;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
 body {
-  font-family: 'Geist', sans-serif;
-  background-color: #f8f9fa;
+  font-family: "Geist", sans-serif;
   margin: 0;
-  padding: 20px;
+  line-height: 1.4;
 }
 
 .container {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  padding: var(--card-spacing);
 }
 
 .card {
-  background-color: #fff;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  padding: var(--card-spacing);
 }
-
-.text {
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-}
-
 .btn {
-  font-size: 1rem;
-  padding: 10px 20px;
+  font: inherit;
+  padding: 8px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  font-weight: bolder;
 }
 
 .btn-primary {
-  background-color: hsl(271, 81%, 56%);
-  color: white;
+  background-color: var(--purple-700);
+  color: var(--white);
 }
 
 .btn-outline {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid var(--gray-300);
 }
 
 .btn-secondary {
-  background-color: #f1f5f9;
-  color: #1f2937;
+  background-color: var(--gray-100);
+  color: var(--black);
 }
 
 label {
@@ -71,9 +83,9 @@ input[type="text"],
 textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font: inherit;
 }
 
 textarea {
@@ -83,14 +95,14 @@ textarea {
 .badge {
   padding: 6px 14px;
   border-radius: 20px;
-  color: white;
+  color: var(--white);
   display: inline-block;
 }
 
 .badge-danger {
-  background-color: hsl(0, 84%, 60%);
+  background-color: var(--red-700);
 }
 
 .badge-success {
-  background-color: hsl(142, 76%, 36%);
+  background-color: var(--green-700);
 }

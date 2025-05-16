@@ -1,10 +1,6 @@
 function HomePage() {
   return (
     <div className="container">
-      <style>
-        @import
-        url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-      </style>
       <h1>Home</h1>
       <div className="card">
         <button className="btn btn-primary">Click Me</button>
