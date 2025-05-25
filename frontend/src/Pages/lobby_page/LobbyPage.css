@@ -1,12 +1,10 @@
 body,
 html {
   margin: 0;
-  padding-left: 20px;
-  padding-top: 20px;
   height: 100%;
 }
 
-.game-lobby-container {
+.card {
   display: flex;
   font-family: sans-serif;
   padding: 0;
@@ -50,7 +48,7 @@ html {
 
 .game-code {
   font-size: 2.2rem;
-  color: #4caf50;
+  color: var(--green-700);
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -228,7 +226,7 @@ html {
   color: var(--green-900);
 }
 @media (max-width: 700px) {
-  .game-lobby-container {
+  .card {
     flex-direction: column;
     padding: 10px;
   }
