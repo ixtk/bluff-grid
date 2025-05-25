@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './lobbyPage.css';
+import { User, CheckCircle } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+
 
 const initialPlayers = [
     { id: 'user1', name: 'You', role: 'Host', ready: true },
@@ -29,7 +32,10 @@ const Lobby = () => {
             <div className="lobby-details">
                 <div>
                 <Link to="/" className="back-to-home">
-                  ← Back to Home
+                    <button class="btn btn-primary"> <ArrowLeft size={15}  className="me-2" /><h7>Back to Home</h7></button>
+                
+                  
+
                 </Link></div>
                 <h2>Game Lobby</h2>
                 <p>Waiting for players to join and get ready</p>
@@ -44,7 +50,7 @@ const Lobby = () => {
 
                 <div className="players-section">
                     <div className="players-header">
-                       👤 Players ({players.length}/8)
+                       <User size={24} color="#007bff" /> Players ({players.length}/8)
                     </div>
                     {players.map((player) => (
                         <div className="player-item" key={player.id}>
@@ -55,7 +61,7 @@ const Lobby = () => {
                             </div>
                             {player.ready && (
                                 <div className="player-status">
-                                    ✅Ready
+                                    <CheckCircle size={20} className="text-success" />Ready
                                 </div>
                             )}
                         </div>
