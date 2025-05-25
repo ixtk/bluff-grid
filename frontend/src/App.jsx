@@ -1,7 +1,7 @@
 import "./App.css"
 import { Routes, Route } from "react-router"
 import HomePage from "./Pages/HomePage"
-import Lobby from "./Pages/lobby_page/lobby_page"
+import Lobby from "./Pages/lobby_page/LobbyPage.jsx"
 
 function App() {
   return (

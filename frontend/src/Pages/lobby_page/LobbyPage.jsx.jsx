@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './lobby_page.css';
+import './lobbyPage.css';
 
 const initialPlayers = [
     { id: 'user1', name: 'You', role: 'Host', ready: true },
