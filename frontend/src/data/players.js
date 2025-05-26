@@ -29,6 +29,27 @@ const players = [
     ],
     correctFactIndex: 0
   }
+  ,
+  {
+    id: 4,
+    name: "Morgan",
+    facts: [
+      "I have a pet tarantula named Fluffy.",
+      "I can play the guitar and the piano.",
+      "I once ran a marathon in under three hours."
+    ],
+    correctFactIndex: 1
+  },
+  {
+    id: 5,
+    name: "Casey",
+    facts: [
+      "I’ve been skydiving three times.",
+      "I can recite the alphabet backwards.",
+      "I have a twin brother who is a professional chef."
+    ],
+    correctFactIndex: 2
+  }
 ]
 
 export default players
