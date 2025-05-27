@@ -1,31 +1,33 @@
-export function QuestionCard({ question, answers, correct, onAnswer, showAnswer, selected }) {
+export function QuestionCard({ question, answers, correct, onAnswer, showAnswer, selectedOption, voteCounts }) {
     const handleClick = (option) => {
         if (showAnswer) return
         const isCorrect = option === correct
         onAnswer(isCorrect)
     }
- 
+   
     return (
         <div className="card">
-            <h2>{question}</h2>
             {answers.map((option, index) => {
                 let className = "btn btn-secondary";
                 if (showAnswer) {
-                    if (option === correct) {
-                        className += " correct";
-                    } else {
-                        className += " incorrect";
-                    }
+                    className += option === correct ? " correct" : " incorrect";
                 }
+                const votes = voteCounts?.[index] || 0;
                 return (
-                    <button
-                        key={index}
+                    <div key={index}>
+                    <button                        
                         className={className}
                         onClick={() => handleClick(option)}
                         disabled={showAnswer}
                     >
                         {option}
                     </button>
+                    {showAnswer && (
+                        <div className="vote-count">
+                            {votes} vote{votes !== 1 ? "s" : ""}
+                        </div>
+                    )}
+                    </div>
                 );
             })}
         </div>
