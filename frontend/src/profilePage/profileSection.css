@@ -76,7 +76,7 @@ body {
 
 .profile-main {
     display: flex;
-    justify-content:space-evenly;
+    justify-content:center;
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -177,8 +177,33 @@ body {
 
 
 
-        @media (max-width: 1000px) {
 
+   .profile-main {
+        display: flex;
+        gap: var(--card-spacing);
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    
+
+        
+        
+        
+        
+        @media (max-width: 1000px) {
+            
+            .profile-main {
+                flex-direction: column;
+                align-items: center;
+                margin: 2rem 0rem;
+                       }
+               
+            .profile-card,
+            .bluff-grid-section {
+                max-width: 80%;
+                       }     
+            
             .avatar-circle.small,
             .avatar-circle.large {
                 width: 50px;
@@ -188,6 +213,7 @@ body {
             .avatar-circle.large {
                 margin: 0 auto;
             }
+            
     
             .profile-main {
                 flex-direction: column;
@@ -200,10 +226,11 @@ body {
             }
     
             .bluff-grid-header {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
                 gap: 0.5rem;
             }
+
     
             .grid-list {
                 gap: 1rem;
@@ -218,7 +245,7 @@ body {
             .btn-primary,
             .btn-outline,
             .logout-btn {
-                width: 100%;
+                 width: 50%; 
                 font-size: 0.95rem;
             }
     

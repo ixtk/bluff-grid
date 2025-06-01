@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import "../Pages/profileSection.css"
+import "../profilePage/profileSection.css"
 import { LogOut, Pencil, Plus, Trash2, Check, X } from "lucide-react"
 
 const ProfileSection = () => {
@@ -64,8 +64,9 @@ const ProfileSection = () => {
         <div className="header-right">
           <span className="username">demo</span>
           <label className="avatar-circle small">
-            <input type="file" accept="image/*" onChange={handleAvatarChange} />
-            {avatar && <img src={avatar} alt="Avatar" />}
+            <div className="avatar-circle large">
+              <img src="" alt="" />
+            </div>
           </label>
           <button className="logout-btn">
             <LogOut size={16} /> Logout
@@ -73,13 +74,14 @@ const ProfileSection = () => {
         </div>
       </header>
 
-      <main className="profile-main">
+      <main className="profile-main ">
         <section className="profile-card">
           <h2>My Profile</h2>
           <p>Manage your account and bluff grids</p>
           <label className="avatar-circle large">
-            <input type="file" accept="image/*" onChange={handleAvatarChange} />
-            {avatar && <img src={avatar} alt="Profile Avatar" />}
+            <div className="avatar-circle large">
+              <img src="" alt="" />
+            </div>
           </label>
           <h3>demo</h3>
           <p className="joined-date">Member since 11.05.2025</p>
@@ -88,8 +90,8 @@ const ProfileSection = () => {
         <section className="bluff-grid-section">
           <div className="bluff-grid-header">
             <h2>My Bluff Grids</h2>
-            <button className="btn-primary" onClick={handleAddGrid}>
-              <Plus size={16} /> Add a New Bluff Grid
+            <button className="btn btn-primary" onClick={handleAddGrid}>
+              + Add a New Bluff Grid
             </button>
           </div>
 
