@@ -113,7 +113,14 @@ export function Game() {
           ))}
         </div>
 
-        <div className="timer">Time Left: {timeLeft}s</div>
+        <div className="timer">Time Left: {timeLeft}s
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${(timeLeft / 60) * 100}%` }}
+            ></div>
+          </div>
+        </div>
       </div>
 
       <QuestionCard

@@ -20,6 +20,7 @@ export function QuestionCard({ question, answers, correct, onAnswer, showAnswer,
                         onClick={() => handleClick(option)}
                         disabled={showAnswer}
                     >
+                        
                         {option}
                     </button>
                     {showAnswer && (
