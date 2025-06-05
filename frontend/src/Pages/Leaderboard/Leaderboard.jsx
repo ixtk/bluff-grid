@@ -1,6 +1,6 @@
 import React from "react";
 import "./Leaderboard.css";
-import { Trophy, Home, Share2 } from "lucide-react";
+import { Trophy, Home } from "lucide-react";
 
 const Leaderboard = () => {
   const topPlayers = [
@@ -9,14 +9,10 @@ const Leaderboard = () => {
     { name: "Taylor", score: 7, rank: 3, initial: "T" },
   ];
 
-  const otherPlayers = [
-    { name: "Jordan", score: 5, rank: 4, initial: "J" },
-  ];
-
   return (
-    <div className="leaderboard-container">
+    <div className="container">
       <div className="trophy-icon">
-        <Trophy size={70} color="#a855f7" />
+        <Trophy size={70} color="var(--purple-500)" />
       </div>
       <h1 className="title">Game Over!</h1>
       <h2 className="subtitle">Final Results</h2>
@@ -25,37 +21,33 @@ const Leaderboard = () => {
         {topPlayers.map((player, index) => (
           <div
             key={index}
-            className={`player-card ${
-              player.rank === 1 ? "winner-card" : ""
-            }`}
+            className={`player-card ${player.rank === 1 ? "winner-card" : ""}`}
           >
             <div className="avatar">{player.initial}</div>
             <div className="rank-badge">{player.rank}</div>
             <div className="name">{player.name}</div>
             <div className="score">{player.score} pts</div>
-            {player.winner && (
-              <div className="winner-label">Winner!</div>
-            )}
+            {player.winner && <div className="winner-label">Winner!</div>}
           </div>
         ))}
       </div>
 
       <div className="other-players-section">
         <h1>Other Players</h1>
-        <div className="other-player-card">
+        <div className="card other-player-card">
           <div className="rank-badge small">4</div>
           <div className="avatar small">J</div>
           <div className="other-player-info">
             <div className="name">Jordan</div>
             <div className="score">5 pts</div>
           </div>
-          
         </div>
       </div>
 
       <div className="footer-buttons">
-        <button className="footer-btn"><Home /> Back to Home</button>
-        <button className="footer-btn1"><Share2 />Share Results</button>
+        <button className="btn btn-primary">
+          <Home /> Back to Home
+        </button>
       </div>
     </div>
   );
