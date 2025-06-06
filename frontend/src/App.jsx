@@ -2,7 +2,7 @@
 import "./App.css"
 import { Routes, Route } from "react-router"
 import HomePage from "./Pages/HomePage"
-import ProfilePage from "./profilePage/ProfileSection" 
+import ProfilePage from "./profilePage/profilepage" 
 
 function App() {
   return (
