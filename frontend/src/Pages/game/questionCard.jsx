@@ -1,4 +1,4 @@
-export function QuestionCard({ question, answers, correct, onAnswer, showAnswer, selectedOption, voteCounts }) {
+export function QuestionCard({ answers, correct, onAnswer, showAnswer, selectedOption, voteCounts }) {
     const handleClick = (option) => {
         if (showAnswer) return
         const isCorrect = option === correct
@@ -28,7 +28,7 @@ export function QuestionCard({ question, answers, correct, onAnswer, showAnswer,
                             {votes} vote{votes !== 1 ? "s" : ""}
                         </div>
                     )}
-                    </div>
+               </div> 
                 );
             })}
         </div>

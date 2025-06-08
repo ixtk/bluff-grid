@@ -113,7 +113,7 @@ export function Game() {
           ))}
         </div>
 
-        <div className="timer">Time Left: {timeLeft}s
+        <div className="timer">{timeLeft}s
           <div className="progress-bar">
             <div
               className="progress-fill"
