@@ -35,37 +35,29 @@ export function Game() {
     return () => clearInterval(timer);
   }, [currentPlayerIndex, showAnswer, isFinished]);
 
+  const moveToNextPlayer = () => {
+    const nextIndex = currentPlayerIndex + 1;
 
-  useEffect(() => {
-    if (showAnswer) {
-      const timeout = setTimeout(() => {
-        const nextIndex = currentPlayerIndex + 1;
-
-        if (nextIndex >= players.length) {
-          if (round >= totalRounds) {
-            setIsFinished(true);
-          } else {
-            setRound((prev) => prev + 1);
-            setCurrentPlayerIndex(0);
-          }
-        } else {
-          setCurrentPlayerIndex(nextIndex);
-        }
-
-        setTimeLeft(60);
-        setShowAnswer(false);
-        setSelectedOption(null);
-        setVoteCounts((prev) => {
-          const newCounts = [...prev];
-          newCounts[currentPlayer.correctFactIndex] = 0; 
-          return newCounts;
-        });
-      }, 3000);
-
-      return () => clearTimeout(timeout);
+    if (nextIndex >= players.length) {
+      if (round >= totalRounds) {
+        setIsFinished(true);
+      } else {
+        setRound((prev) => prev + 1);
+        setCurrentPlayerIndex(0);
+      }
+    } else {
+      setCurrentPlayerIndex(nextIndex);
     }
-  }, [showAnswer]);
 
+    setTimeLeft(60);
+    setShowAnswer(false);
+    setSelectedOption(null);
+    setVoteCounts((prev) => {
+      const newCounts = [...prev];
+      newCounts[currentPlayer.correctFactIndex] = 0; 
+      return newCounts;
+    });
+  }
 
   const handleAnswer = (isCorrect, selected) => {
     setSelectedOption(selected);
@@ -80,8 +72,7 @@ export function Game() {
       setScore((prev) => prev + 1);
     }
     setShowAnswer(true);
-  };
-
+  }
 
   if (isFinished) {
     return (
@@ -132,6 +123,11 @@ export function Game() {
         selectedOption={selectedOption}
         voteCounts={voteCounts}
       />
+      {showAnswer && (
+        <button className="next-player-btn" onClick={moveToNextPlayer}>
+          Next Player
+        </button>
+      )}
     </div>
   );
 }

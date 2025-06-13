@@ -1,11 +1,13 @@
 import "./App.css"
 import { Routes, Route } from "react-router"
-import { Game } from "./Pages/game/game.jsx"
+import { Homepage } from "./Pages/HomePage"
+import { Game } from "./Pages/GamePage"
 
 function App() {
   return (
     <Routes>
-      <Route index element={<Game />} />
+      <Route index element={<Homepage />} />
+      <Route path="/game" element={<Game />} />
     </Routes>
   )
 }
