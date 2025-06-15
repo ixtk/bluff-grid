@@ -1,13 +1,13 @@
 import "./App.css"
 import { Routes, Route } from "react-router"
-import { Homepage } from "./Pages/HomePage"
-import { Game } from "./Pages/GamePage"
+import Homepage from "./Pages/HomePage"
+import { Game } from "./Pages/game/game"
 
 function App() {
   return (
     <Routes>
-      <Route index element={<Homepage />} />
-      <Route path="/game" element={<Game />} />
+    <Route index element={<Game />} />
+    <Route path="/home" element={<Homepage />} />
     </Routes>
   )
 }
