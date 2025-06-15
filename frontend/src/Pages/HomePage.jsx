@@ -1,32 +1,48 @@
-function HomePage() {
+import React from 'react';
+import { auth } from '../lib/firebase';
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+import axiosInstance from '../lib/axiosInstance';
+
+const HomePage = () => {
+  const handleLogin = async (providerType) => {
+    const provider =
+      providerType === 'google'
+        ? new GoogleAuthProvider()
+        : new FacebookAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const token = await user.getIdToken();
+
+      console.log("User:", user);
+      console.log("Firebase Token:", token);
+
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
+  const testProtectedRoute = async () => {
+    try {
+      const response = await axiosInstance.get('/protected');
+      console.log('Protected response:', response.data);
+      alert(JSON.stringify(response.data));
+    } catch (error) {
+      console.error('Protected request failed:', error);
+      alert(error.response?.data?.message || 'Request failed');
+    }
+  };
+
   return (
-    <div className="container">
-      <h1>Home</h1>
-      <div className="card">
-        <button className="btn btn-primary">Click Me</button>
-        <button className="btn btn-outline">Click Me</button>
-        <button className="btn btn-secondary">Click Me</button>
-      </div>
-
-      <br />
-      <div className="text card ">
-        <div>
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
-        </div>
-
-        <br />
-
-        <div>
-          <label htmlFor="story">Story</label>
-          <textarea rows={5} id="story"></textarea>
-        </div>
-      </div>
-
-      <br />
-      <span className="badge badge-danger">TRUE</span>
-      <span className="badge badge-success">FALSE</span>
+    <div>
+      <h1>Welcome to Bluff Grid</h1>
+      <button onClick={() => handleLogin('google')}>Login with Google</button>
+      <button onClick={() => handleLogin('facebook')}>Login with Facebook</button>
+      <br /><br />
+      <button onClick={testProtectedRoute}>Test Protected Route</button>
     </div>
-  )
-}
-export default HomePage
+  );
+};
+
+export default HomePage;
