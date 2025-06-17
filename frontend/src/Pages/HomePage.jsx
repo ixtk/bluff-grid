@@ -1,6 +1,10 @@
 import React from 'react';
 import { auth } from '../lib/firebase';
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 import axiosInstance from '../lib/axiosInstance';
 
 const HomePage = () => {
@@ -15,9 +19,12 @@ const HomePage = () => {
       const user = result.user;
       const token = await user.getIdToken();
 
-      console.log("User:", user);
-      console.log("Firebase Token:", token);
+      console.log('User:', user);
+      console.log('Firebase Token:', token);
 
+      // 👉 გაუშვი მოთხოვნა backend-ზე, რომ შეამოწმოს ან შექმნას user
+      await axiosInstance.post('/api/users');
+      console.log('User successfully sent to backend');
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -27,10 +34,10 @@ const HomePage = () => {
     try {
       const response = await axiosInstance.get('/protected');
       console.log('Protected response:', response.data);
-      alert(JSON.stringify(response.data));
+      alert(response.data.message);
     } catch (error) {
       console.error('Protected request failed:', error);
-      alert(error.response?.data?.message || 'Request failed');
+      alert(error.response?.data?.message || 'Unauthorized');
     }
   };
 
@@ -39,7 +46,8 @@ const HomePage = () => {
       <h1>Welcome to Bluff Grid</h1>
       <button onClick={() => handleLogin('google')}>Login with Google</button>
       <button onClick={() => handleLogin('facebook')}>Login with Facebook</button>
-      <br /><br />
+      <br />
+      <br />
       <button onClick={testProtectedRoute}>Test Protected Route</button>
     </div>
   );

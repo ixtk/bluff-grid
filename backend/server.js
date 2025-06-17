@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 const cors = require('cors');
 const verifyAuth = require('./middleware/verifyAuth'); 
+import userRoutes from './routes/users.js';
+app.use('/api/users', userRoutes);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
