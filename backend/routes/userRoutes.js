@@ -7,7 +7,6 @@ const router = express.Router();
 router.post('/', verifyAuth, async (req, res) => {
   try {
     const { uid } = req.user;
-
     let user = await User.findOne({ firebaseId: uid });
 
     if (!user) {
@@ -20,9 +19,5 @@ router.post('/', verifyAuth, async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
-router.get("/protected", verifyAuth, (req, res) => {
-  res.json({ message: "This is a protected route!" });
-});
-
 
 export default router;

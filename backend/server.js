@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', userRoutes);
+app.use('/api/users', userRoutes);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/chat-app')
   .then(() => {

@@ -10,13 +10,12 @@ import axiosInstance from '../lib/axiosInstance';
 
 const HomePage = () => {
   const handleLogin = async (providerType) => {
-    const provider =
-      providerType === 'google'
-        ? new GoogleAuthProvider()
-        : new FacebookAuthProvider();
+  const provider =
+    providerType === 'google'
+      ? new GoogleAuthProvider()
+      : new FacebookAuthProvider();
 
-     try {
-    const provider = new GoogleAuthProvider();
+  try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     console.log("User:", user);
@@ -25,11 +24,17 @@ const HomePage = () => {
     console.log("Firebase Token:", token);
     localStorage.setItem('token', token); 
 
-    await axiosInstance.post('/users'); 
+    
+    await axiosInstance.post('/users', {
+      uid: user.uid,
+      email: user.email,
+    });
+
   } catch (error) {
     console.error("Login failed:", error);
   }
-  };
+};
+
 
   const testProtectedRoute = async () => {
     try {
