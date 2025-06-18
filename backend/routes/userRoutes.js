@@ -9,15 +9,15 @@ router.post('/', verifyAuth, async (req, res) => {
     const { uid } = req.user;
 
     let user = await User.findOne({ firebaseId: uid });
+
     if (!user) {
       user = new User({ firebaseId: uid });
       await user.save();
     }
 
-    res.status(200).json({ message: 'User checked/created', user });
+    res.status(200).json({ message: 'User processed', user });
   } catch (error) {
-    console.error('User creation error:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 

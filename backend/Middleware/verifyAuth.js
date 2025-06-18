@@ -1,35 +1,28 @@
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
+import serviceAccount from '../firebase-adminsdk.json' assert { type: 'json' };
 
-const serviceAccount = require('../firebase-adminsdk.json'); 
-
-try {
+if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccount),
   });
-} catch (error) {
-  if (!admin.apps.length) {
-  }
 }
 
 const verifyAuth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Authorization token was not provided or is malformed.' });
+  if (!authHeader?.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Authorization header missing' });
   }
 
   const idToken = authHeader.split('Bearer ')[1];
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
-    req.user = decodedToken; 
-    next(); 
+    req.user = decodedToken;
+    next();
   } catch (error) {
-    if (error.code === 'auth/id-token-expired') {
-      return res.status(401).json({ message: 'Authorization token has expired. Please sign in again.' });
-    }
-    return res.status(403).json({ message: 'Invalid token.', error: error.message });
+    return res.status(403).json({ message: 'Invalid token', error: error.message });
   }
 };
 
-module.exports = verifyAuth;
+export default verifyAuth;
