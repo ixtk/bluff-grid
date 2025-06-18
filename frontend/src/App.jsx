@@ -1,11 +1,12 @@
 import "./App.css"
 import { Routes, Route } from "react-router"
+import Homepage from './Pages/HomePage.jsx'
 import { Game } from "./Pages/game/game"
+import Layout from './components/Layout.jsx'
 
-import HomePage from "./Pages/HomePage"
 import Lobby from "./Pages/lobby_page/LobbyPage.jsx"
 import Leaderboard from "./Pages/Leaderboard/Leaderboard";
-import Layout from './components/Layout';
+
 
 function App() {
   return (

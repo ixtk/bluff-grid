@@ -15,20 +15,20 @@ const HomePage = () => {
         ? new GoogleAuthProvider()
         : new FacebookAuthProvider();
 
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const token = await user.getIdToken();
+     try {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    console.log("User:", user);
 
-      console.log('User:', user);
-      console.log('Firebase Token:', token);
+    const token = await user.getIdToken();
+    console.log("Firebase Token:", token);
+    localStorage.setItem('token', token); 
 
-      // 👉 გაუშვი მოთხოვნა backend-ზე, რომ შეამოწმოს ან შექმნას user
-      await axiosInstance.post('/api/users');
-      console.log('User successfully sent to backend');
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
+    await axiosInstance.post('/users'); 
+  } catch (error) {
+    console.error("Login failed:", error);
+  }
   };
 
   const testProtectedRoute = async () => {

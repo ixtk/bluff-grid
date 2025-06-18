@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem('token');
+    console.log("🔑 TOKEN:", token); // დამატება
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -17,5 +18,4 @@ axiosInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
 export default axiosInstance;

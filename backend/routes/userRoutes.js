@@ -20,5 +20,9 @@ router.post('/', verifyAuth, async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
+router.get("/protected", verifyAuth, (req, res) => {
+  res.json({ message: "This is a protected route!" });
+});
+
 
 export default router;
