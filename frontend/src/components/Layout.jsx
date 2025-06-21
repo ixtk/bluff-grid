@@ -1,46 +1,56 @@
-import { useContext } from "react";
-import { auth, googleProvider, facebookProvider } from "../lib/firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
-import { AuthContext } from "../lib/AuthContext";
+import { useContext } from "react"
+import { auth, googleProvider, facebookProvider } from "../lib/firebase"
+import { signInWithPopup, signOut } from "firebase/auth"
+import { AuthContext } from "../lib/AuthContext"
+import {Outlet} from "react-router-dom"
 
-export default function Layout({ children }) {
-  const { user, setUser } = useContext(AuthContext);
+export default function Layout() {
+  const { user, setUser } = useContext(AuthContext)
 
   const handleGoogleLogin = async () => {
     googleProvider.setCustomParameters({
-      prompt: "select_account",
-    });
+      prompt: "select_account"
+    })
     try {
-      await signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider)
+      await axiosInstance.post("/users")
     } catch (err) {
-      console.error("Google login failed", err);
+      console.error("Google login failed", err)
     }
-  };
+  }
 
   const handleFacebookLogin = async () => {
     facebookProvider.setCustomParameters({
-      auth_type: "reauthenticate",
-    });
+      auth_type: "reauthenticate"
+    })
     try {
-      await signInWithPopup(auth, facebookProvider);
+      await signInWithPopup(auth, facebookProvider)
+      await axiosInstance.post("/users")
     } catch (err) {
-      console.error("Facebook login failed", err);
+      console.error("Facebook login failed", err)
     }
-  };
+  }
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
-      localStorage.removeItem("token");
-      setUser(null);
+      await signOut(auth)
+
+      setUser(null)
     } catch (err) {
-      console.error("Logout failed", err);
+      console.error("Logout failed", err)
     }
-  };
-  console.log("User object:", user);
+  }
+  console.log("User object:", user)
   return (
     <div>
-      <header style={{ display: "flex", gap: "1rem", padding: "1rem", alignItems: "center" }}>
+      <header
+        style={{
+          display: "flex",
+          gap: "1rem",
+          padding: "1rem",
+          alignItems: "center"
+        }}
+      >
         {!user && (
           <>
             <button onClick={handleGoogleLogin}>Login with Google</button>
@@ -61,7 +71,7 @@ export default function Layout({ children }) {
         )}
       </header>
 
-      <main>{children}</main>
+      <main><Outlet /></main>
     </div>
-  );
+  )
 }

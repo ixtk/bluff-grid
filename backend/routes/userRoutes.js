@@ -2,9 +2,6 @@ import express from 'express';
 import verifyAuth from '../Middleware/verifyAuth.js';
 import User from '../Models/User.js';
 
-// exla uceb gadmovwer me chemtan moica 2 wuti da davtestav
-// daaqomite es da dapushe
-
 const router = express.Router();
 
 router.post('/', verifyAuth, async (req, res) => {
