@@ -11,7 +11,7 @@ import Leaderboard from "./Pages/Leaderboard/Leaderboard";
 function App() {
   return (
     <Routes>
-      <Route index element={<Homepage />} />
+      <Route index element={<Layout />} />
       <Route path="/game" element={<Game />} />
       <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/lobby"  element={<Lobby />}/>

@@ -1,59 +1,60 @@
-
-import React from 'react';
-import { auth } from '../lib/firebase';
-import {
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup,
-} from 'firebase/auth';
-import axiosInstance from '../lib/axiosInstance';
+import { useContext } from "react";
+import { AuthContext } from "../lib/AuthContext";
+import { auth, googleProvider, facebookProvider } from "../lib/firebase";
+import { signInWithPopup } from "firebase/auth";
+import axiosInstance from "../lib/axiosInstance";
 
 const HomePage = () => {
+  const { user } = useContext(AuthContext);
+
   const handleLogin = async (providerType) => {
-  const provider =
-    providerType === 'google'
-      ? new GoogleAuthProvider()
-      : new FacebookAuthProvider();
+    const provider =
+      providerType === "google" ? googleProvider : facebookProvider;
 
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    console.log("User:", user);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
 
-    const token = await user.getIdToken();
-    console.log("Firebase Token:", token);
-    localStorage.setItem('token', token); 
+      const token = await firebaseUser.getIdToken();
+      localStorage.setItem("token", token);
 
-    
-    await axiosInstance.post('/users', {
-      uid: user.uid,
-      email: user.email,
-    });
-
-  } catch (error) {
-    console.error("Login failed:", error);
-  }
-};
-
+      await axiosInstance.post("/users", {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        username: firebaseUser.displayName,
+        photoUrl: firebaseUser.photoURL
+      });
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
 
   const testProtectedRoute = async () => {
     try {
-      const response = await axiosInstance.get('/protected');
-      console.log('Protected response:', response.data);
+      const response = await axiosInstance.get("/protected");
       alert(response.data.message);
     } catch (error) {
-      console.error('Protected request failed:', error);
-      alert(error.response?.data?.message || 'Unauthorized');
+      alert(error.response?.data?.message || "Unauthorized");
     }
   };
 
   return (
-    <div>
+    <div style={{ padding: "1rem" }}>
       <h1>Welcome to Bluff Grid</h1>
-      <button onClick={() => handleLogin('google')}>Login with Google</button>
-      <button onClick={() => handleLogin('facebook')}>Login with Facebook</button>
-      <br />
-      <br />
+
+      {!user && (
+        <>
+          <button onClick={() => handleLogin("google")}>
+            Login with Google
+          </button>
+          <button onClick={() => handleLogin("facebook")}>
+            Login with Facebook
+          </button>
+        </>
+      )}
+
+      {user && <p>Hello, {user.username}</p>}
+
       <button onClick={testProtectedRoute}>Test Protected Route</button>
     </div>
   );

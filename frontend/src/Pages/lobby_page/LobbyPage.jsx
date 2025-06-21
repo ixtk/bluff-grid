@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
-import "./lobbyPage.css"
+import "./LobbyPage.css"
 import { User, CheckCircle } from "lucide-react"
 import { ArrowLeft } from "lucide-react"
 
