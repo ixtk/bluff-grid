@@ -1,0 +1,138 @@
+.container {
+    padding: 40px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+    max-width: 100%;
+}
+
+.header {
+    position: relative;
+    width: 100%;               
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;         
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    margin-bottom: 80px;
+}
+  
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #5f2dab;
+    cursor: pointer;
+}
+  
+.login-links {
+    display: flex;
+    gap: 15px;
+}
+  
+.login-btn {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease;
+}
+  
+.login-btn.fb {
+    background-color: #3b5998;
+    color: white;
+}
+  
+.login-btn.gmail {
+    background-color: #db4437;
+    color: white;
+}
+  
+.login-btn:hover {
+    opacity: 0.9;
+}
+  
+  
+.top-section .tagline {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 15px;
+    font-weight: bolder;
+}
+  
+.top-section .title {
+    font-size: 45px;
+    color: #6b32c0;
+    margin: 0;
+}
+  
+.top-section .subtitle {
+    font-size: 18px;
+    color: #444;
+    margin-top: 10px;
+}
+  
+.top-section .step-intro {
+    color: #414141;
+    margin: 50px;
+}
+  
+.steps {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 960px;        
+    margin: 0 auto;  
+    padding: 20px;     
+}
+  
+.step-box {
+    flex: 1 1 280px;
+    max-width: 300px;
+    min-width: 240px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.step-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.step-box svg {
+    width: 40px;
+    height: 40px;
+    fill: #5f2dab;
+    margin-bottom: 10px;
+}
+  
+.step-box.blue svg {
+    fill: #1570ef;
+}
+  
+.step-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #5f2dab;
+}
+
+.step-title.blue {
+    color: #1570ef;
+}
+  
+.step-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+}
+  
