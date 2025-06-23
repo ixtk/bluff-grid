@@ -1,32 +1,9 @@
-function HomePage() {
+const HomePage = () => {
   return (
-    <div className="container">
-      <h1>Home</h1>
-      <div className="card">
-        <button className="btn btn-primary">Click Me</button>
-        <button className="btn btn-outline">Click Me</button>
-        <button className="btn btn-secondary">Click Me</button>
-      </div>
-
-      <br />
-      <div className="text card ">
-        <div>
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
-        </div>
-
-        <br />
-
-        <div>
-          <label htmlFor="story">Story</label>
-          <textarea rows={5} id="story"></textarea>
-        </div>
-      </div>
-
-      <br />
-      <span className="badge badge-danger">TRUE</span>
-      <span className="badge badge-success">FALSE</span>
+    <div style={{ padding: "1rem" }}>
+      <h1>Welcome to Bluff Grid</h1>
     </div>
   )
 }
+
 export default HomePage
