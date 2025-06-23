@@ -1,15 +1,21 @@
 import { LogOut, Pencil, Plus, Trash2 } from "lucide-react"
-import "./CreateGridPage"
+import { useNavigate } from "react-router" // ✅ add this
+import "./profilepage.css"
 
-const ProfilePage = ({ bluffGrids = [], onNavigateToCreateGrid, onDeleteGrid }) => {
-  const handleDeleteGrid = (id) => {
+const ProfilePage = ({ bluffGrids = [], onDeleteGrid }) => {
+  const navigate = useNavigate() // ✅ hook
+
+  const handleAddNewGrid = () => {
+    navigate("/create") // ✅ navigate to CreateGridPage
+  }
+
+  const handleDeleteGrid = id => {
     if (window.confirm("Are you sure you want to delete this grid?")) {
       onDeleteGrid(id)
     }
   }
 
   return (
-    
     <div className="container">
       <header className="profile-header">
         <h1 className="logo">Bluff Grid</h1>
@@ -42,14 +48,14 @@ const ProfilePage = ({ bluffGrids = [], onNavigateToCreateGrid, onDeleteGrid }) 
         <section className="bluff-grid-section">
           <div className="bluff-grid-header">
             <h2>My Bluff Grids</h2>
-            <button className="btn btn-primary" onClick={onNavigateToCreateGrid}>
+            <button className="btn btn-primary" onClick={handleAddNewGrid}>
               + Add a New Bluff Grid
             </button>
           </div>
 
           {bluffGrids && bluffGrids.length > 0 ? (
             <ul className="grid-list">
-              {bluffGrids.map((grid) => (
+              {bluffGrids.map(grid => (
                 <li key={grid.id} className="card">
                   <div>
                     <h3>{grid.title}</h3>
@@ -59,7 +65,10 @@ const ProfilePage = ({ bluffGrids = [], onNavigateToCreateGrid, onDeleteGrid }) 
                     <button className="icon-btn">
                       <Pencil size={18} />
                     </button>
-                    <button className="icon-btn" onClick={() => handleDeleteGrid(grid.id)}>
+                    <button
+                      className="icon-btn"
+                      onClick={() => handleDeleteGrid(grid.id)}
+                    >
                       <Trash2 size={18} />
                     </button>
                   </div>
@@ -69,7 +78,7 @@ const ProfilePage = ({ bluffGrids = [], onNavigateToCreateGrid, onDeleteGrid }) 
           ) : (
             <div className="NewGrid container card">
               <p>You haven't created any bluff grids yet.</p>
-              <button className="btn btn-primary" onClick={onNavigateToCreateGrid}>
+              <button className="btn btn-primary" onClick={handleAddNewGrid}>
                 <Plus size={16} /> Create Your First Grid
               </button>
             </div>
@@ -81,3 +90,4 @@ const ProfilePage = ({ bluffGrids = [], onNavigateToCreateGrid, onDeleteGrid }) 
 }
 
 export default ProfilePage
+

@@ -94,6 +94,10 @@ body {
     color: var(--gray-700);
 }
 
+.form-error {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 4px; }
 .avatar-circle {
     position: relative;
     background: var(--gray-300);
