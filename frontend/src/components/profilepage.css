@@ -46,6 +46,8 @@ body {
     text-decoration: none;
     transition: all 0.2s;
     font-family: inherit;
+    background-color: var(--green-700);
+    color: var(--gray-100);
 }
 
 .btn-primary {
