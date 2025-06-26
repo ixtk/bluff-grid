@@ -1,23 +1,19 @@
 import { useNavigate } from "react-router"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { ArrowLeft, Check } from "lucide-react"
+import axiosInstance from "../lib/axiosInstance" 
+import { useState } from "react"
 
-const CreateGridPage = ({ onSaveGrid }) => {
+const CreateGridPage = () => {
   const navigate = useNavigate()
+  const [submitError, setSubmitError] = useState(null)
 
-  // Validation schema or simple validation function
-  const validate = values => {
+  const validate = (values) => {
     const errors = {}
-    if (!values.title.trim()) {
-      errors.title = "Grid title is required"
-    }
-    const filledStatements = values.statements.filter(s => s.trim() !== "")
-    if (filledStatements.length < 9) {
+    if (!values.title.trim()) errors.title = "Grid title is required"
+    if (values.statements.filter((s) => s.trim() !== "").length < 9)
       errors.statements = "Please fill in all 9 statements"
-    }
-    if (values.truthIndex === null || values.truthIndex === undefined) {
-      errors.truthIndex = "Please select one statement as true"
-    }
+    if (values.truthIndex == null) errors.truthIndex = "Select one true statement"
     return errors
   }
 
@@ -38,8 +34,8 @@ const CreateGridPage = ({ onSaveGrid }) => {
       <main className="create-grid-main">
         <div className="create-grid-header">
           <button
-            className="back-link"
             type="button"
+            className="back-link"
             onClick={() => navigate("/profile")}
           >
             <ArrowLeft size={16} /> Back to Profile
@@ -62,13 +58,23 @@ const CreateGridPage = ({ onSaveGrid }) => {
               truthIndex: null
             }}
             validate={validate}
-            onSubmit={values => {
-              console.log("Saved Grid:", values)
-              onSaveGrid(values)
-              navigate("/profile")
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
+              setSubmitError(null)
+              try {
+                await axiosInstance.post("/save-grid", values)  
+                resetForm()
+                navigate("/profile")                            
+              } catch (err) {
+                console.error(err)
+                setSubmitError(
+                  err?.response?.data?.message || "Could not save grid"
+                )
+              } finally {
+                setSubmitting(false)
+              }
             }}
           >
-            {({ values, setFieldValue, errors, touched }) => (
+            {({ values, setFieldValue, isSubmitting, errors, touched }) => (
               <Form>
                 <div className="grid-title-section">
                   <label htmlFor="title" className="form-label">
@@ -77,7 +83,7 @@ const CreateGridPage = ({ onSaveGrid }) => {
                   <Field
                     id="title"
                     name="title"
-                    placeholder="e.g., My Childhood, Travel Adventures, etc."
+                    placeholder="e.g., My Childhood, Travel Adventures"
                     className="grid-title-input"
                   />
                   <ErrorMessage
@@ -102,7 +108,7 @@ const CreateGridPage = ({ onSaveGrid }) => {
                   )}
 
                   <div className="statements-grid">
-                    {values.statements.map((statement, index) => (
+                    {values.statements.map((_, index) => (
                       <div key={index} className="statement-item">
                         <Field
                           as="textarea"
@@ -119,24 +125,30 @@ const CreateGridPage = ({ onSaveGrid }) => {
                           }`}
                           onClick={() => setFieldValue("truthIndex", index)}
                         >
-                          <Check size={16} />
-                          Mark Truth
+                          <Check size={16} /> Mark Truth
                         </button>
                       </div>
                     ))}
                   </div>
                 </div>
 
+                {submitError && <p className="error-message">{submitError}</p>}
+
                 <div className="create-grid-actions">
                   <button
                     type="button"
                     className="btn btn-outline"
                     onClick={() => navigate("/profile")}
+                    disabled={isSubmitting}
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="btn ">
-                    Save Grid
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Saving…" : "Save Grid"}
                   </button>
                 </div>
               </Form>
@@ -149,4 +161,3 @@ const CreateGridPage = ({ onSaveGrid }) => {
 }
 
 export default CreateGridPage
-
