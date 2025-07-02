@@ -29,11 +29,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/chat-app'
 
   
 require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const admin = require("firebase-admin");
-const path = require("path");
+
+
+
+
 
 mongoose
   .connect(process.env.MONGO_URI, {

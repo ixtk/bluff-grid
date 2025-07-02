@@ -1,0 +1,79 @@
+header {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 40px;
+ 
+}
+
+header h1 {
+  font-size: 24px;
+  color: #5f2dab;
+  margin: 0;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+button {
+  background-color: #5f2dab;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background-color: #4a21a6;
+}
+
+
+
+
+img[alt="Profile"] {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #5f2dab;
+}
+
+
+span {
+  font-weight: bold;
+  color: #5f2dab;
+  font-size: 15px;
+}
+
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  header div {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    text-align: center;
+  }
+
+  span {
+    padding-left: 4px;
+  }
+}

@@ -3,6 +3,7 @@ import { auth, googleProvider, facebookProvider } from "../lib/firebase"
 import { signInWithPopup, signOut } from "firebase/auth"
 import { AuthContext } from "../lib/AuthContext"
 import {Outlet} from "react-router-dom"
+import  "./Layout.css"
 
 export default function Layout() {
   const { user, setUser } = useContext(AuthContext)
