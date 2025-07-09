@@ -17,10 +17,7 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken()
-
         const username = firebaseUser.displayName
-
-        
         const photoUrl = firebaseUser.photoURL
         const email = firebaseUser.email
         const uid = firebaseUser.uid
@@ -37,7 +34,8 @@ export const AuthContextProvider = ({ children }) => {
             },
             error => Promise.reject(error)
           )
-          await axiosInstance.post("/users")
+
+          await axiosInstance.post("/api/users")
         } catch (err) {
           console.error("User creation failed:", err)
         }

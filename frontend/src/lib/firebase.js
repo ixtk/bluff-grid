@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, setPersistence, browserLocalPersistence, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCbIdie0w-i1B9zIg2Ia2APlbzpf__5_fc",
-  authDomain: "bluff-grid.firebaseapp.com",
-  projectId: "bluff-grid",
-  storageBucket: "bluff-grid.firebasestorage.app",
-  messagingSenderId: "234841094709",
-  appId: "1:234841094709:web:53226412b4fb9bbd658f7c"
+  apiKey: "AIzaSyDb3h0IpXEu15WuCiAx_SkbKDrrKoawvbM",
+  authDomain: "bluff-grid-8cdfa.firebaseapp.com",
+  projectId: "bluff-grid-8cdfa",
+  storageBucket: "bluff-grid-8cdfa.firebasestorage.app",
+  messagingSenderId: "148747345875",
+  appId: "1:148747345875:web:bd50ce478edd6435dc1926"
 };
 
 const app = initializeApp(firebaseConfig);

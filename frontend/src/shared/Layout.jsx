@@ -4,6 +4,7 @@ import { signInWithPopup, signOut } from "firebase/auth"
 import { AuthContext } from "../lib/AuthContext"
 import {Outlet} from "react-router-dom"
 import  "./Layout.css"
+import axiosInstance from "../lib/axiosInstance"
 
 export default function Layout() {
   const { user, setUser } = useContext(AuthContext)
@@ -67,6 +68,10 @@ export default function Layout() {
               src={user.photoUrl}
               alt="Profile"
               style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+               onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = '/default-avatar.png'; 
+  }}
             />
             <span>{user.username}</span>
             <button onClick={handleLogout}>Logout</button>

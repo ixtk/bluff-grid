@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import players from "../../data/players"; 
+import players from "../../mock-data/players"; 
 import "./game.css";
 import { QuestionCard } from "./questionCard";
 

@@ -9,17 +9,14 @@ import admin from 'firebase-admin';
 
 dotenv.config();
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 app.use(cors());
 app.use(express.json());
-
 
 const serviceAccountPath = path.resolve(__dirname, process.env.FIREBASE_SERVICE_ACCOUNT);
 const serviceAccount = JSON.parse(await fs.promises.readFile(serviceAccountPath, 'utf-8'));
@@ -27,7 +24,6 @@ const serviceAccount = JSON.parse(await fs.promises.readFile(serviceAccountPath,
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-
 
 const verifyAuth = async (req, res, next) => {
   try {
@@ -44,20 +40,39 @@ const verifyAuth = async (req, res, next) => {
 };
 
 
-const gridSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  statements: { type: [String], required: true, minlength: 9, maxlength: 9 },
-  trueStatement: { type: String, required: true },
-});
 
 const userSchema = new mongoose.Schema({
   firebaseId: { type: String, required: true, unique: true },
   email: { type: String, required: true },
-  grids: { type: [gridSchema], default: [] },
+  username: { type: String },
+  photoUrl: { type: String }
+ 
 });
 
 const User = mongoose.model('User', userSchema);
 
+
+app.post('/api/users', verifyAuth, async (req, res) => {
+  try {
+    const { uid, email, username, photoUrl } = req.user;
+
+    let user = await User.findOne({ firebaseId: uid });
+
+    if (!user) {
+      user = await User.create({
+        firebaseId: uid,
+        email,
+        username,
+        photoUrl,
+      });
+    }
+
+    res.status(201).send({ success: true });
+  } catch (err) {
+    console.error('User creation failed:', err);
+    res.status(500).json({ message: 'Failed to create user' });
+  }
+});
 
 app.post('/save-grid', verifyAuth, async (req, res) => {
   try {
@@ -117,10 +132,7 @@ app.delete('/grids/:id', verifyAuth, async (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
     app.listen(PORT, () => console.log(`🚀 Server ready on port ${PORT}`));
