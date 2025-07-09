@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { ArrowLeft, Check } from "lucide-react"
-import axiosInstance from "../lib/axiosInstance" 
+import axiosInstance from "../../lib/axiosInstance" 
 import { useState } from "react"
 
 const CreateGridPage = () => {

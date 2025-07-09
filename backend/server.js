@@ -6,11 +6,11 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import admin from 'firebase-admin';
+import User from  "./Models/User.js";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,11 +18,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const serviceAccountPath = path.resolve(__dirname, process.env.FIREBASE_SERVICE_ACCOUNT);
-const serviceAccount = JSON.parse(await fs.promises.readFile(serviceAccountPath, 'utf-8'));
-
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  "projectId": "bluff-grid-8cdfa"
 });
 
 const verifyAuth = async (req, res, next) => {
@@ -38,20 +35,6 @@ const verifyAuth = async (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized' });
   }
 };
-
-
-
-const userSchema = new mongoose.Schema({
-  firebaseId: { type: String, required: true, unique: true },
-  email: { type: String, required: true },
-  username: { type: String },
-  photoUrl: { type: String }
- 
-});
-
-const User = mongoose.model('User', userSchema);
-
-
 app.post('/api/users', verifyAuth, async (req, res) => {
   try {
     const { uid, email, username, photoUrl } = req.user;

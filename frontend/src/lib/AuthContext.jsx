@@ -35,7 +35,7 @@ export const AuthContextProvider = ({ children }) => {
             error => Promise.reject(error)
           )
 
-          await axiosInstance.post("/api/users")
+          await axiosInstance.post("/users")
         } catch (err) {
           console.error("User creation failed:", err)
         }
