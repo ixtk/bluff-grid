@@ -1,19 +1,20 @@
 import { useNavigate } from "react-router"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { ArrowLeft, Check } from "lucide-react"
-import axiosInstance from "../../lib/axiosInstance" 
+import axiosInstance from "../../lib/axiosInstance"
 import { useState } from "react"
 
 const CreateGridPage = () => {
   const navigate = useNavigate()
   const [submitError, setSubmitError] = useState(null)
 
-  const validate = (values) => {
+  const validate = values => {
     const errors = {}
     if (!values.title.trim()) errors.title = "Grid title is required"
-    if (values.statements.filter((s) => s.trim() !== "").length < 9)
+    if (values.statements.filter(s => s.trim() !== "").length < 9)
       errors.statements = "Please fill in all 9 statements"
-    if (values.truthIndex == null) errors.truthIndex = "Select one true statement"
+    if (values.truthIndex == null)
+      errors.truthIndex = "Select one true statement"
     return errors
   }
 
@@ -46,8 +47,8 @@ const CreateGridPage = () => {
           <div className="create-grid-title-section">
             <h1>Create a New Bluff Grid</h1>
             <p className="subtitle">
-              Create a 3×3 grid with 8 false statements and 1 true statement
-              about yourself
+              Create a grid with 4 false statements and 1 true statement about
+              yourself
             </p>
           </div>
 
@@ -61,9 +62,9 @@ const CreateGridPage = () => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               setSubmitError(null)
               try {
-                await axiosInstance.post("/save-grid", values)  
+                await axiosInstance.post("/save-grid", values)
                 resetForm()
-                navigate("/profile")                            
+                navigate("/profile")
               } catch (err) {
                 console.error(err)
                 setSubmitError(

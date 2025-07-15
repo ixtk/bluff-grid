@@ -88,7 +88,7 @@ export function Game() {
       <div className="game-header">
         <div className="round-title">
           <p>Round {currentRound}/{totalRounds}</p>
-          <h2>Which fact is TRUE about {currentPlayer.name}?</h2>
+          <h2>Which fact is TRUE  about {currentPlayer.name}?</h2>
         </div>
 
         <div className="players-list">
