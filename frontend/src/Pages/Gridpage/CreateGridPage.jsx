@@ -11,7 +11,7 @@ const CreateGridPage = () => {
   const validate = values => {
     const errors = {}
     if (!values.title.trim()) errors.title = "Grid title is required"
-    if (values.statements.filter(s => s.trim() !== "").length < 9)
+    if (values.statements.filter(s => s.trim() !== "").length < 5)
       errors.statements = "Please fill in all 9 statements"
     if (values.truthIndex == null)
       errors.truthIndex = "Select one true statement"
@@ -20,17 +20,6 @@ const CreateGridPage = () => {
 
   return (
     <div className="container">
-      <header className="profile-header">
-        <h1 className="logo">Bluff Grid</h1>
-        <div className="header-right">
-          <span className="username">demo</span>
-          <label className="avatar-circle small">
-            <div className="avatar-circle large">
-              <img src="/placeholder.svg?height=32&width=32" alt="" />
-            </div>
-          </label>
-        </div>
-      </header>
 
       <main className="create-grid-main">
         <div className="create-grid-header">
@@ -55,7 +44,7 @@ const CreateGridPage = () => {
           <Formik
             initialValues={{
               title: "",
-              statements: Array(9).fill(""),
+              statements: Array(5).fill(""),
               truthIndex: null
             }}
             validate={validate}
@@ -97,7 +86,7 @@ const CreateGridPage = () => {
                 <div className="statements-section">
                   <h2 className="statements-title">Statements</h2>
                   <p className="statements-subtitle">
-                    Enter 9 statements about yourself. Select ONE statement that
+                    Enter 5 statements about yourself. Select ONE statement that
                     is true, the rest should be false.
                   </p>
 
@@ -115,7 +104,7 @@ const CreateGridPage = () => {
                           as="textarea"
                           name={`statements[${index}]`}
                           placeholder={`Statement ${index + 1}`}
-                          rows={3}
+                          rows={2}
                           className="statement-input"
                         />
 

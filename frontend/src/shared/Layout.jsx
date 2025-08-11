@@ -68,10 +68,7 @@ export default function Layout() {
               src={user.photoUrl}
               alt="Profile"
               style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-               onError={(e) => {
-    e.target.onerror = null;
-    e.target.src = '/default-avatar.png'; 
-  }}
+               
             />
             <span>{user.username}</span>
             <button onClick={handleLogout}>Logout</button>

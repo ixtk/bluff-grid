@@ -150,6 +150,9 @@ body {
     gap: 2rem;
     margin-top: var(--card-spacing);
 }
+.profile-main .card {
+  flex-direction: column;
+}
 
 .avatar {
     display: flex;

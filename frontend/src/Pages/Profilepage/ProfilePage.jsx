@@ -7,23 +7,10 @@ const ProfilePage = ({ bluffGrids, onDeleteGrid }) => {
 
   return (
     <div className="container">
-      <header className="profile-header">
-        <h1 className="logo">Bluff Grid</h1>
-        <div className="header-right">
-          <span className="username">demo</span>
-          <label className="avatar-circle small">
-            <div className="avatar-circle large">
-              <img src="/placeholder.svg?height=32&width=32" alt="" />
-            </div>
-          </label>
-          <button className="logout-btn">
-            <LogOut size={16} /> Logout
-          </button>
-        </div>
-      </header>
+     
 
       <main className="profile-main">
-        <section className="avatar card">
+        <section className=" card">
           <h2>My Profile</h2>
           <p>Manage your account and bluff grids</p>
           <label className="avatar-circle large">
