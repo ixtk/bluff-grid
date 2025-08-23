@@ -7,6 +7,8 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import admin from 'firebase-admin';
 import User from  "./Models/User.js";
+import { Server } from "socket.io"
+import { createServer } from "http"
 
 dotenv.config();
 
@@ -14,6 +16,90 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const httpServer = createServer(app);
+
+// Initialize Socket.IO with CORS
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+  transports: ['websocket', 'polling']
+});
+
+// Store rooms data
+const rooms = {};
+// Track socket to room mapping
+const socketRooms = new Map();
+
+io.on("connection", (socket) => {
+  console.log("Client connected:", socket.id);
+
+  socket.on("join-room", ({ code, player }) => {
+    // Leave previous room if any
+    const previousRoom = socketRooms.get(socket.id);
+    if (previousRoom) {
+      socket.leave(previousRoom);
+      if (rooms[previousRoom]) {
+        rooms[previousRoom].players = rooms[previousRoom].players.filter(p => p.id !== socket.id);
+        if (rooms[previousRoom].players.length === 0) {
+          delete rooms[previousRoom];
+        } else {
+          io.to(previousRoom).emit("room-update", rooms[previousRoom]);
+        }
+      }
+      socketRooms.delete(socket.id);
+    }
+
+    // Join new room
+    socket.join(code);
+    socketRooms.set(socket.id, code);
+    
+    // Initialize room if it doesn't exist
+    if (!rooms[code]) {
+      rooms[code] = {
+        code,
+        players: []
+      };
+    }
+
+    // Remove any existing entries for this player in the room
+    rooms[code].players = rooms[code].players.filter(p => p.id !== socket.id);
+
+    // Add player to room
+    const playerData = {
+      id: socket.id,
+      ...player,
+      joinedAt: Date.now() // Add timestamp to track connection order
+    };
+    rooms[code].players.push(playerData);
+
+    // Log room state
+    console.log(`Room ${code} has ${rooms[code].players.length} players:`, 
+      rooms[code].players.map(p => ({ id: p.id, name: p.name })));
+
+    // Emit room update to all clients in the room
+    io.to(code).emit("room-update", rooms[code]);
+  });
+
+  socket.on("disconnect", () => {
+    const roomCode = socketRooms.get(socket.id);
+    if (roomCode && rooms[roomCode]) {
+      console.log(`Player ${socket.id} disconnected from room ${roomCode}`);
+      rooms[roomCode].players = rooms[roomCode].players.filter(p => p.id !== socket.id);
+      
+      if (rooms[roomCode].players.length === 0) {
+        console.log(`Room ${roomCode} is empty, deleting it`);
+        delete rooms[roomCode];
+      } else {
+        console.log(`Room ${roomCode} now has ${rooms[roomCode].players.length} players`);
+        io.to(roomCode).emit("room-update", rooms[roomCode]);
+      }
+    }
+    socketRooms.delete(socket.id);
+  });
+});
 
 app.use(cors());
 app.use(express.json());
@@ -118,7 +204,10 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB connected');
-    app.listen(PORT, () => console.log(`🚀 Server ready on port ${PORT}`));
+    httpServer.listen(PORT, () => {
+      console.log(`🚀 Server ready on port ${PORT}`);
+      console.log(`📡 Socket.IO server is running`);
+    });
   })
   .catch((err) => {
     console.error('MongoDB error:', err);

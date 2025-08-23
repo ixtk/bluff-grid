@@ -2,9 +2,10 @@ import { useContext } from "react"
 import { auth, googleProvider, facebookProvider } from "../lib/firebase"
 import { signInWithPopup, signOut } from "firebase/auth"
 import { AuthContext } from "../lib/AuthContext"
-import {Outlet} from "react-router-dom"
-import  "./Layout.css"
+import { Outlet , Link} from "react-router-dom"
+import "./Layout.css"
 import axiosInstance from "../lib/axiosInstance"
+
 
 export default function Layout() {
   const { user, setUser } = useContext(AuthContext)
@@ -51,32 +52,37 @@ export default function Layout() {
           gap: "1rem",
           padding: "1rem",
           alignItems: "center",
-          justifyContent:"space-between"
+          justifyContent: "space-between"
         }}
       >
         <h1>bluff grid</h1>
-        <div>{!user && (
-          <>
-            <button onClick={handleGoogleLogin}>Login with Google</button>
-            <button onClick={handleFacebookLogin}>Login with Facebook</button>
-          </>
-        )}
-
-        {user && (
-          <>
-            <img
-              src={user.photoUrl}
-              alt="Profile"
-              style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-               
-            />
-            <span>{user.username}</span>
-            <button onClick={handleLogout}>Logout</button>
-          </>
-        )}</div>
+        <div>
+          {!user && (
+            <>
+              <button onClick={handleGoogleLogin}>Login with Google</button>
+              <button onClick={handleFacebookLogin}>Login with Facebook</button>
+            </>
+          )}
+        <Link to="/" className="homebutton" >home</Link>
+       <Link  to="/profile" className="profilebutton">profile</Link>
+       <Link to="/create" className="createbutton">create</Link>
+          {user && (
+            <>
+              <img
+                src={user.photoUrl}
+                alt="Profile"
+                style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+              />
+              <span>{user.username}</span>
+              <button onClick={handleLogout}>Logout</button>
+            </>
+          )}
+        </div>
       </header>
 
-      <main><Outlet /></main>
+      <main>
+        <Outlet />
+      </main>
     </div>
   )
 }

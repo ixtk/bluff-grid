@@ -1,37 +1,57 @@
-import React, { useEffect, useState } from "react"
-
+import React, { useEffect, useState, useContext } from "react"
 import { useLocation, Link } from "react-router-dom"
-
 import "./LobbyPage.css"
-
 import { User, CheckCircle, ArrowLeft } from "lucide-react"
+import { socket } from "../../socket"
+import { AuthContext } from "../../lib/AuthContext"
 
 const Lobby = () => {
   const location = useLocation()
-
+  const { user } = useContext(AuthContext)
   const params = new URLSearchParams(location.search)
-
   const code = params.get("code") || "UNKNOWN"
-
   const isHost = params.get("host") === "true"
-
   const [players, setPlayers] = useState([])
-
   const [selectedGrid, setSelectedGrid] = useState("My childhood")
 
   useEffect(() => {
-    const me = {
-      id: "me",
-
-      name: "You",
-
-      role: isHost ? "Host" : "Player",
-
-      ready: isHost
+    if (!socket.connected) {
+      socket.connect()
     }
 
-    setPlayers([me])
-  }, [isHost])
+    const joinRoom = () => {
+      const playerData = {
+        name: user?.displayName || "Anonymous",
+        role: isHost ? "Host" : "Player",
+        ready: isHost,
+        photoUrl: user?.photoURL
+      }
+
+      console.log("Joining room", code, "as", playerData.name)
+      socket.emit("join-room", {
+        code,
+        player: playerData
+      })
+    }
+
+    // Join room initially and on reconnection
+    joinRoom()
+    socket.on("connect", joinRoom)
+
+    // Listen for room updates
+    socket.on("room-update", roomData => {
+      console.log("Room update received:", roomData.players.length, "players")
+      setPlayers(roomData.players)
+    })
+
+    // Cleanup on unmount
+    return () => {
+      console.log("Cleaning up socket listeners")
+      socket.off("connect", joinRoom)
+      socket.off("room-update")
+      socket.disconnect()
+    }
+  }, [code, isHost, user])
 
   const handleCopyLink = () => {
     const url = `${window.location.origin}/lobby?code=${code}`
