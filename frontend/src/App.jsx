@@ -8,6 +8,7 @@ import { Game } from "./Pages/game/game"
 import Layout from "./shared/Layout.jsx"
 import Lobby from "./Pages/lobby_page/LobbyPage.jsx"
 import Leaderboard from "./Pages/Leaderboard/Leaderboard"
+import About from "./Pages/About/About.jsx"
 
 function App() {
   const [bluffGrids, setBluffGrids] = useState([])
@@ -22,18 +23,7 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
-        <Route
-          path="/profile"
-          element={
-            <ProfilePage
-              bluffGrids={bluffGrids}
-              onDeleteGrid={id =>
-                setBluffGrids(prev => prev.filter(g => g.id !== id))
-              }
-              onNavigateToCreateGrid={() => {}}
-            />
-          }
-        />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route
           path="/create"
           element={
@@ -47,6 +37,7 @@ function App() {
         <Route path="/game" element={<Game />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/lobby" element={<Lobby />} />
+        <Route path="/about" element={<About />} />
       </Route>
     </Routes>
   )

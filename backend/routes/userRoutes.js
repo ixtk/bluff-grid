@@ -5,7 +5,7 @@ import User from './Models/User.js'
 const router = express.Router();
 
 router.post('/', verifyAuth, async (req, res) => {
-  try {
+  try { 
     const { uid } = req.user;
     let user = await User.findOne({ firebaseId: uid });
 

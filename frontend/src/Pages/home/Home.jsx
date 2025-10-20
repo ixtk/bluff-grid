@@ -103,7 +103,7 @@ export const Home = () => {
           <div className="step-title">Create Topic-Based Grids</div>
 
           <p className="step-text">
-            Craft 9 statements about yourself on different topics – 8 clever
+            Craft 5 statements about yourself on different topics – 4 clever
             lies and 1 surprising truth. Make them believable to keep your
             friends guessing!
           </p>

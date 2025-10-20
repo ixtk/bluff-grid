@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import { ArrowLeft, Check } from "lucide-react"
 import axiosInstance from "../../lib/axiosInstance"
 import { useState } from "react"
+import "./CreateGridPage.css"
 
 const CreateGridPage = () => {
   const navigate = useNavigate()
@@ -12,8 +13,8 @@ const CreateGridPage = () => {
     const errors = {}
     if (!values.title.trim()) errors.title = "Grid title is required"
     if (values.statements.filter(s => s.trim() !== "").length < 5)
-      errors.statements = "Please fill in all 9 statements"
-    if (values.truthIndex == null)
+      errors.statements = "Please fill in all 5 statements"
+    if (values.truthIndex === null || values.truthIndex === undefined)
       errors.truthIndex = "Select one true statement"
     return errors
   }
@@ -50,12 +51,15 @@ const CreateGridPage = () => {
             validate={validate}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               setSubmitError(null)
+              console.log('Submitting grid with values:', values)
               try {
-                await axiosInstance.post("/save-grid", values)
+                const response = await axiosInstance.post("/save-grid", values)
+                console.log('Grid saved successfully:', response.data)
                 resetForm()
                 navigate("/profile")
               } catch (err) {
-                console.error(err)
+                console.error('Error saving grid:', err)
+                console.error('Error response:', err.response?.data)
                 setSubmitError(
                   err?.response?.data?.message || "Could not save grid"
                 )

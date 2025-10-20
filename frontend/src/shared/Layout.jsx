@@ -5,6 +5,7 @@ import { AuthContext } from "../lib/AuthContext"
 import { Outlet , Link} from "react-router-dom"
 import "./Layout.css"
 import axiosInstance from "../lib/axiosInstance"
+import Footer from "./Footer"
 
 
 export default function Layout() {
@@ -55,17 +56,18 @@ export default function Layout() {
           justifyContent: "space-between"
         }}
       >
-        <h1>bluff grid</h1>
+        <h1>Bluff Grid</h1>
         <div>
           {!user && (
             <>
               <button onClick={handleGoogleLogin}>Login with Google</button>
-              <button onClick={handleFacebookLogin}>Login with Facebook</button>
+
             </>
           )}
         <Link to="/" className="homebutton" >home</Link>
        <Link  to="/profile" className="profilebutton">profile</Link>
        <Link to="/create" className="createbutton">create</Link>
+       <Link to="/about" className="aboutbutton">about</Link>
           {user && (
             <>
               <img
@@ -83,6 +85,8 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
+
+      <Footer />
     </div>
   )
 }

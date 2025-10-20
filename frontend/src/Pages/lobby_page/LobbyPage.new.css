@@ -129,16 +129,10 @@
   gap: 10px;
   font-size: 20px;
   font-weight: 800;
-  color: #667eea !important;
+  color: #667eea;
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 2px solid #e0e7ff;
-}
-
-.players-header svg {
-  color: #667eea !important;
-  stroke: #667eea !important;
-  flex-shrink: 0;
 }
 
 .player-item {
@@ -317,14 +311,12 @@
 }
 
 .statements-count {
-  font-size: 14px !important;
-  font-weight: 900 !important;
-  color: #ffffff !important;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  padding: 6px 16px !important;
-  border-radius: 20px !important;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  -webkit-text-fill-color: #ffffff !important;
+  font-size: 13px;
+  font-weight: 600;
+  color: #667eea;
+  background: white;
+  padding: 4px 12px;
+  border-radius: 20px;
 }
 
 .statements-list {
